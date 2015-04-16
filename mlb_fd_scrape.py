@@ -16,9 +16,20 @@ f = open('c:\\temp\\goup.out','w')
 playerAtt = []
 for player in goup('td'):
     if  player.text is None:
-        print(player.findtext('div'), file=f)
+        playerAtt.append(player.findtext('div'))
     else:
-        print(player.text,file=f)
+        playerAtt.append(player.text)
+        
+floor = 0
+ceiling = 7
+
+finalSet = []
+for attribute in playerAtt:
+	finalSet.append(playerAtt[floor:ceiling])
+	floor+=9
+	ceiling+=9
+	
+	
 
 
 
