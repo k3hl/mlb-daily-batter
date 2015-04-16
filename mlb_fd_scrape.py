@@ -8,6 +8,7 @@ from pyquery import PyQuery as pquery
 from lxml import etree
 import requests
 
+
 site = requests.get('https://www.fanduel.com/e/Game/12096?new_contest=1&stakelist=1x0&isLeague=false&isPublic=true')
 goup = pquery(site.content)
 
@@ -20,7 +21,7 @@ for player in goup('td'):
     elif player.text is not None:
         s_data+=player.text.lstrip() + "|"
     else:
-        s_data+="@NON|"
+        s_data+="HOME|"
     counter+=1
     
     if counter == 7:
