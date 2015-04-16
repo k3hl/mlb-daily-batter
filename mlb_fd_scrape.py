@@ -8,30 +8,27 @@ from pyquery import PyQuery as pquery
 from lxml import etree
 import requests
 
-site = requests.get('https://www.fanduel.com/e/Game/12093?new_contest=1&stakelist=1x0&isLeague=false&isPublic=false')
+site = requests.get('https://www.fanduel.com/e/Game/12096?new_contest=1&stakelist=1x0&isLeague=false&isPublic=true')
 goup = pquery(site.content)
 
 counter	= 0
-s_data	= 0
+s_data	= ""
 playerAtt = []
 for player in goup('td'):
-    if  player.text is None:
-        s_data+=player.findtext('div') + "\|"
+    if  player.text is None and player.findtext('div') is not None:
+        s_data+=player.findtext('div').lstrip() + "|"
+    elif player.text is not None:
+        s_data+=player.text.lstrip() + "|"
     else:
-        s_data+=player.text + "\|"
-    count+=1
+        s_data+="@NON|"
+    counter+=1
     
-    if count == 6:
-    	playerAtt.append(s_data)
-    	count = 0
-    	s_data=""
+    if counter == 7:
+        playerAtt.append(s_data)
+        counter = 0
+        s_data=""
 
-	
-	
-
-
-
-
+for p in playerAtt: print(p)
 
 
 
