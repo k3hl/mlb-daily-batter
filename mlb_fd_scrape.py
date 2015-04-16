@@ -11,23 +11,21 @@ import requests
 site = requests.get('https://www.fanduel.com/e/Game/12093?new_contest=1&stakelist=1x0&isLeague=false&isPublic=false')
 goup = pquery(site.content)
 
-f = open('c:\\temp\\goup.out','w')
-
+counter	= 0
+s_data	= 0
 playerAtt = []
 for player in goup('td'):
     if  player.text is None:
-        playerAtt.append(player.findtext('div'))
+        s_data+=player.findtext('div') + "\|"
     else:
-        playerAtt.append(player.text)
-        
-floor = 0
-ceiling = 7
+        s_data+=player.text + "\|"
+    count+=1
+    
+    if count == 6:
+    	playerAtt.append(s_data)
+    	count = 0
+    	s_data=""
 
-finalSet = []
-for attribute in playerAtt:
-	finalSet.append(playerAtt[floor:ceiling])
-	floor+=9
-	ceiling+=9
 	
 	
 
